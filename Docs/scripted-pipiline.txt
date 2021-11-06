@@ -1,0 +1,30 @@
+pipeline {
+
+  agent any
+ 
+  stages {
+      stage('Checkout SCM') {
+        steps {
+            git url: 'https://github.com/chinnamule/uhub-sapi.git',
+                branch: 'develop'
+      }
+    }
+    stage('Build') {
+      steps {
+            bat 'mvn -B -U -e -V clean -DskipTests package'
+      }
+    }
+
+    stage('Test') {
+      steps {
+          echo "********** MUNIT test execution goes here ************"
+      }
+    }
+
+     stage('Deploy Development') {
+      steps {
+            bat 'mvn -U -V -e -B -DskipTests deploy -Pdev -DmuleDeploy -Dusername=chinnauho2021 -Dpassword=Mule@1234 -Denc.key=abcdef0123456789 -Danypoint.platform.client_id=08aada5757a94292837be7f4e73703c1 -Danypoint.platform.client_secret=48ba0E4D52A44BaD811066dED290ab14'
+      }
+    }
+}
+}
