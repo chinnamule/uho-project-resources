@@ -1,0 +1,3 @@
+mvn clean package deploy -Pdev -DmuleDeploy -Dusername=chinnauho2021 -Dpassword=Mule@1234 -Denc.key=abcdef0123456789 -Danypoint.platform.client_id=08aada5757a94292837be7f4e73703c1 -Danypoint.platform.client_secret=48ba0E4D52A44BaD811066dED290ab14
+
+mvn clean package deploy -Ptest -DmuleDeploy -Dusername=chinnauho2021 -Dpassword=Mule@1234 -Denc.key=abcdef0123456789 -Danypoint.platform.client_id=41addbcf29a648c4993f85eea0fa1fa7 -Danypoint.platform.client_secret=62F71B920351442aabdAB083F48fCc9d
