@@ -38,3 +38,68 @@ END;
 ALTER TRIGGER "CASE_ID_TR" ENABLE;
 
 select * from CVD_CASE_MASTER;
+
+CREATE OR replace PROCEDURE insert_covid_master (
+in_source           IN VARCHAR2,
+in_case_type        IN VARCHAR2, 
+in_first_name       IN VARCHAR2, 
+in_last_name        IN VARCHAR2, 
+in_phone            IN VARCHAR2, 
+in_email            IN VARCHAR2, 
+in_date_of_birth    IN VARCHAR2, 
+in_national_id      IN VARCHAR2, 
+in_national_id_type IN VARCHAR2, 
+in_street_address   IN VARCHAR2, 
+in_city             IN VARCHAR2, 
+in_state            IN VARCHAR2, 
+in_postal           IN VARCHAR2, 
+in_country          IN VARCHAR2, 
+in_create_date      IN VARCHAR2, 
+in_update_date      IN VARCHAR2, 
+in_create_by        IN VARCHAR2, 
+in_update_by        IN VARCHAR2, 
+out_case_id         OUT NUMBER) 
+AS 
+BEGIN 
+    INSERT INTO cvd_case_master 
+                (source, 
+                 case_type, 
+                 first_name, 
+                 last_name, 
+                 phone, 
+                 email, 
+                 date_of_birth, 
+                 national_id, 
+                 national_id_type, 
+                 street_address, 
+                 city, 
+                 state, 
+                 postal, 
+                 country, 
+                 create_date, 
+                 update_date, 
+                 create_by, 
+                 update_by) 
+    VALUES     (in_source, 
+                in_case_type, 
+                in_first_name, 
+                in_last_name, 
+                in_phone, 
+                in_email, 
+                To_date(in_date_of_birth, 'YYYY-MM-DD'), 
+                in_national_id, 
+                in_national_id_type, 
+                in_street_address, 
+                in_city, 
+                in_state, 
+                in_postal, 
+                in_country, 
+                To_date(in_create_date, 'YYYY-MM-DD'), 
+                To_date(in_update_date, 'YYYY-MM-DD'), 
+                in_create_by, 
+                in_update_by) 
+    returning case_id INTO out_case_id; 
+END insert_covid_master; 
+
+/ 
+
